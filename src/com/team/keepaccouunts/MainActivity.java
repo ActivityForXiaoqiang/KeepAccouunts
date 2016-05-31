@@ -1,0 +1,131 @@
+package com.team.keepaccouunts;
+
+import com.team.keepaccouunts.ui.fragment.AccountsFragment;
+import com.team.keepaccouunts.ui.fragment.BudgetFragment;
+import com.team.keepaccouunts.ui.fragment.HomeFragment;
+import com.team.keepaccouunts.ui.fragment.WasteBookFragment;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
+
+/**
+ * 主界面
+ * 
+ * @author xiaoqiang
+ *
+ */
+public class MainActivity extends BaseActivity {
+	private FragmentManager manager; // 碎片管理器
+	private FragmentTransaction ft; // 碎片事件处理器
+	private Fragment mFragment; // 当前显示碎片
+
+	private AccountsFragment accounts;
+	private BudgetFragment budget;
+	private HomeFragment home;
+	private WasteBookFragment wbook;
+
+	private LinearLayout t_home, t_budget, t_accounts, t_wbook;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		init();
+	}
+
+	/**
+	 * 初始化
+	 */
+	void init() {
+		findID();
+		home = new HomeFragment();
+		accounts = new AccountsFragment();
+		budget = new BudgetFragment();
+		wbook = new WasteBookFragment();
+
+		manager = getSupportFragmentManager();
+		ft = manager.beginTransaction();
+		ft.add(R.id.main_fragment, home).commit();
+		mFragment = home;
+
+	}
+
+	/**
+	 * 控件初始化
+	 */
+	void findID() {
+		t_accounts = (LinearLayout) findViewById(R.id.tab3);
+		t_budget = (LinearLayout) findViewById(R.id.tab4);
+		t_home = (LinearLayout) findViewById(R.id.tab1);
+		t_wbook = (LinearLayout) findViewById(R.id.tab2);
+		t_accounts.setOnClickListener(l);
+		t_budget.setOnClickListener(l);
+		t_home.setOnClickListener(l);
+		t_wbook.setOnClickListener(l);
+	}
+
+	/**
+	 * 底部tab按钮的监听
+	 */
+	OnClickListener l = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.tab1:
+				ShowView(mFragment, home);
+				break;
+			case R.id.tab2:
+				ShowView(mFragment, wbook);
+				break;
+			case R.id.tab3:
+				ShowView(mFragment, accounts);
+				break;
+			case R.id.tab4:
+				ShowView(mFragment, budget);
+				break;
+			}
+		}
+	};
+
+	/**
+	 * 显示碎片
+	 * 
+	 * @param from
+	 * @param to
+	 */
+	void ShowView(Fragment from, Fragment to) {
+		if (mFragment == to) {
+			return;
+		}
+		ft = manager.beginTransaction().setCustomAnimations(android.R.anim.slide_in_left,
+				android.R.anim.slide_out_right);
+		if (!to.isAdded()) {
+
+			// Toast.makeText(this, "目标碎片加载" + to.isAdded(), 0).show();
+			ft.hide(from).add(R.id.main_fragment, to).commit();
+
+		} else {
+			// Toast.makeText(this, "目标碎片已被加载" + to.isAdded(), 0).show();
+			ft.hide(from).show(to).commit();
+		}
+		mFragment = to;
+	}
+
+	/**
+	 * 获得当前界面碎片
+	 * 
+	 * @return
+	 */
+	Fragment CurrentFragment() {
+
+		return mFragment;
+	}
+
+}
