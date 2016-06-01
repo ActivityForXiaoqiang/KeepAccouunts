@@ -5,6 +5,13 @@
     android:background="@color/top_bg_color"
     android:orientation="vertical" >
 
+    <ImageView
+        android:id="@+id/main_top_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/header_back_unselected"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/main_top_title"
         android:layout_width="wrap_content"
@@ -13,5 +20,12 @@
         android:text="2016/6/1"
         android:textColor="#fff"
         android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/main_top_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/schedule_add_unselected" />
 
 </RelativeLayout>

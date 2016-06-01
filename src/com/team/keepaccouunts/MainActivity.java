@@ -6,13 +6,18 @@ import com.team.keepaccouunts.ui.fragment.HomeFragment;
 import com.team.keepaccouunts.ui.fragment.WasteBookFragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 /**
  * 主界面
@@ -30,7 +35,9 @@ public class MainActivity extends BaseActivity {
 	private HomeFragment home;
 	private WasteBookFragment wbook;
 
-	private LinearLayout t_home, t_budget, t_accounts, t_wbook;
+	private LinearLayout t_home, t_budget, t_accounts, t_wbook; // 底部按钮
+
+	private ImageView add;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +75,15 @@ public class MainActivity extends BaseActivity {
 		t_budget.setOnClickListener(l);
 		t_home.setOnClickListener(l);
 		t_wbook.setOnClickListener(l);
+
+		add = (ImageView) findViewById(R.id.main_top_add);
+		add.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				showAddAccount();
+			}
+		});
 	}
 
 	/**
@@ -127,5 +143,34 @@ public class MainActivity extends BaseActivity {
 
 		return mFragment;
 	}
+
+	AlertDialog dialog;
+
+	void showAddAccount() {
+		dialog = new AlertDialog.Builder(this).create();
+		dialog.show();
+		Window window = dialog.getWindow();
+		window.setContentView(R.layout.dialog_add_account);
+		TextView add_account, add_group, cancal;
+		add_account = (TextView) window.findViewById(R.id.add_account);
+		add_group = (TextView) window.findViewById(R.id.add_account_group);
+		cancal = (TextView) window.findViewById(R.id.cancal);
+		add_account.setOnClickListener(AddListenr);
+	}
+
+	OnClickListener AddListenr = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.add_account:
+				startActivity(new Intent(MainActivity.this, AccountAddActivity.class));
+				break;
+
+			default:
+				break;
+			}
+		}
+	};
 
 }

@@ -16,7 +16,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/home" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -35,12 +35,12 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/wbook" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="首页" />
+            android:text="账簿" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,12 +54,12 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/account" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="首页" />
+            android:text="帐户" />
     </LinearLayout>
 
     <LinearLayout
@@ -73,12 +73,12 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/budget" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="首页" />
+            android:text="预算" />
     </LinearLayout>
 
 </LinearLayout>

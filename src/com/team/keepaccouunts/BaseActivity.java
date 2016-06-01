@@ -14,5 +14,6 @@ public class BaseActivity extends FragmentActivity {
 		// TODO Auto-generated method stub
 		super.onCreate(arg0);
 		ViewUtil.HideTitleBar(this);
+		KAApplication.ac.addActivity(this);
 	}
 }
