@@ -161,7 +161,7 @@ public class BillAddActivity extends BaseActivity {
 		b.setOnClickListener(l);
 	}
 
-	String MODE;
+	String MODE=DBHelper.GET;
 	OnClickListener l = new OnClickListener() {
 
 		@Override

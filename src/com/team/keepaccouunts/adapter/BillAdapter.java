@@ -50,21 +50,30 @@ public class BillAdapter extends BaseAdapter {
 		if (convertView == null) {
 			convertView = View.inflate(con, R.layout.listview_item_bill, null);
 			h = new Viewholder();
-			h.account = (TextView) convertView.findViewById(R.id.bill_account);
+			// h.account = (TextView)
+			// convertView.findViewById(R.id.bill_account);
 			h.date = (TextView) convertView.findViewById(R.id.bill_date);
 			h.mode = (TextView) convertView.findViewById(R.id.bill_mode);
 			h.money = (TextView) convertView.findViewById(R.id.bill_money);
 			h.type = (TextView) convertView.findViewById(R.id.bill_type);
 			convertView.setTag(h);
-		}else{
+		} else {
 			h = (Viewholder) convertView.getTag();
+		}
+		if (data != null && data.size() > 0) {
+			Bill b = data.get(position);
+			h.date.setText(b.date);
+			h.mode.setText(b.mode);
+			h.money.setText(b.money);
+			h.type.setText(b.type);
+
 		}
 
 		return convertView;
 	}
 
 	class Viewholder {
-		TextView account, date, type, mode, money;
+		TextView date, type, mode, money;
 	}
 
 }

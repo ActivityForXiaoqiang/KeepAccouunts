@@ -67,10 +67,8 @@ public class DBUtil {
 		db.delete(table, null, whereArgs);
 	}
 
-	public ArrayList<Object> query(String table, String selection,
-			String[] selectionArgs) {
-		Cursor c = db.query(table, null, selection, selectionArgs, null, null,
-				null);
+	public ArrayList<Object> query(String table, String selection, String[] selectionArgs) {
+		Cursor c = db.query(table, null, selection, selectionArgs, null, null, null);
 		ArrayList<Object> arrayList = new ArrayList<Object>();
 		/*
 		 * 查询账户
@@ -83,7 +81,7 @@ public class DBUtil {
 				account.group_id = c.getInt(2);
 				account.money = c.getString(3);
 				account.describe = c.getString(4);
-			
+
 				arrayList.add(account);
 			}
 
@@ -102,17 +100,22 @@ public class DBUtil {
 			/*
 			 * 查询账单
 			 */
-			Bill b = new Bill();
-			b.id = c.getInt(0);
-			b.mode = c.getString(1);
-			b.type = c.getString(1);
-			b.account_id = c.getInt(1);
+			
+			while (c.moveToNext()) {
+				Bill b = new Bill();
+				b.id = c.getInt(0);
+
+				b.mode = c.getString(1);
+				b.money = c.getInt(2) + "";
+				b.type = c.getString(3);
+				b.account_id = c.getInt(4);
+				b.describe = c.getString(5);
+				b.date = c.getString(6);
+				arrayList.add(b);
+			}
 			/*
 			 * 查询账单对应的账户
 			 */
-			b.describe = c.getString(1);
-			b.date = c.getString(1);
-			arrayList.add(b);
 		}
 
 		return arrayList;
@@ -121,8 +124,7 @@ public class DBUtil {
 	/*
 	 * 修改表account数据
 	 */
-	public void update(String table, Account a, String whereClause,
-			String[] whereArgs) {
+	public void update(String table, Account a, String whereClause, String[] whereArgs) {
 		ContentValues values = new ContentValues();
 		values.put("name", a.name);
 		values.put("ag_id", a.group_id);
@@ -134,8 +136,7 @@ public class DBUtil {
 	/*
 	 * 修改表account_group数据
 	 */
-	public void update(String table, AccountGroup ag, String whereClause,
-			String[] whereArgs) {
+	public void update(String table, AccountGroup ag, String whereClause, String[] whereArgs) {
 		ContentValues values = new ContentValues();
 		values.put("name", ag.name);
 		values.put("describe", ag.describe);
@@ -145,8 +146,7 @@ public class DBUtil {
 	/*
 	 * 修改表bill数据
 	 */
-	public void update(String table, Bill b, String whereClause,
-			String[] whereArgs) {
+	public void update(String table, Bill b, String whereClause, String[] whereArgs) {
 		ContentValues values = new ContentValues();
 		values.put("mode", b.mode);
 		values.put("money", b.money);

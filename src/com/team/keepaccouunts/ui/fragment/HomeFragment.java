@@ -17,6 +17,7 @@ import com.team.keepaccouunts.utils.TimeUntil;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,6 +38,18 @@ public class HomeFragment extends Fragment {
 	List<Bill> week;
 	List<Bill> month;
 
+	TextView day, dweek, dmouth;
+	TextView tpay, tget, wpay, wget, mpay, mget;
+	int today_Intpay = 0;
+	int today_Intget = 0;
+
+	int dweek_Intpay = 0;
+	int dweek_Intget = 0;
+
+	int dmouth_Intpay = 0;
+	int dmouth_Intget = 0;
+	TextView t_get, t_pay, t_yusuan;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -54,6 +67,25 @@ public class HomeFragment extends Fragment {
 				getActivity().startActivity(new Intent(getActivity(), BillAddActivity.class));
 			}
 		});
+		day = (TextView) view.findViewById(R.id.today_date);
+		dweek = (TextView) view.findViewById(R.id.week_date);
+		dmouth = (TextView) view.findViewById(R.id.mouth_date);
+		day.setText(TimeUntil.getLocalDate("yyyy/MM/dd"));
+		dweek.setText(TimeUntil.getLocalDate("yyyy/MM/dd"));
+		dmouth.setText(TimeUntil.getLocalDate("yyyy/MM/dd"));
+
+		tget = (TextView) view.findViewById(R.id.today_get);
+		tpay = (TextView) view.findViewById(R.id.today_pay);
+
+		mget = (TextView) view.findViewById(R.id.mouth_get);
+		mpay = (TextView) view.findViewById(R.id.mouth_pay);
+
+		wget = (TextView) view.findViewById(R.id.week_get);
+		wpay = (TextView) view.findViewById(R.id.week_pay);
+
+		t_get = (TextView) view.findViewById(R.id.z_shouru);
+		t_pay = (TextView) view.findViewById(R.id.t_zhichu);
+
 	}
 
 	void datainit() {
@@ -71,21 +103,60 @@ public class HomeFragment extends Fragment {
 			c.setTime(new Date());
 			int dayIndex = c.get(Calendar.DAY_OF_WEEK);
 
-			Date end = TimeUntil.StrToDate("yyyy/MM/dd", getTomorrowDate("yyyy/MM/dd", 8 - dayIndex));
-			Date start = TimeUntil.StrToDate("yyyy/MM/dd", getTomorrowDate("yyyy/MM/dd", -dayIndex - 1));
+			Date end = TimeUntil.StrToDate("yyyy/MM/dd", getTomorrowDate("yyyy/MM/dd", 7 - dayIndex));
+			Date start = TimeUntil.StrToDate("yyyy/MM/dd", getTomorrowDate("yyyy/MM/dd", -dayIndex));
 			Date d = TimeUntil.StrToDate("yyyy/MM/dd", b.date);
 			if (d.compareTo(start) == 1 && d.compareTo(end) == -1) {
 				week.add(b);
 			}
 
-			Date dd = TimeUntil.StrToDate("yyyy/MM", b.date);
-			Date benyue = TimeUntil.StrToDate("yyyy/MM", new Date().toGMTString());
-			if (dd.compareTo(benyue) == 0) {
+			Date dd = TimeUntil.StrToDate("yyyy/MM/dd", b.date);
+			Date benyue = TimeUntil.StrToDate("yyyy/MM/dd", new Date().toGMTString());
+			if (dd.compareTo(benyue) < 0) {
 				month.add(b);
 			}
 
 		}
 
+		for (int i = 0; i < today.size(); i++) {
+			Bill b = today.get(i);
+			if (b.mode.equals(DBHelper.GET)) {
+				today_Intget = today_Intget + new Integer(b.money);
+			}
+			if (b.mode.equals(DBHelper.PAY)) {
+				today_Intpay = today_Intpay + new Integer(b.money);
+			}
+		}
+		Log.i("xiaoqiang", today_Intget + "" + today_Intpay);
+		tget.setText(today_Intget + "");
+		tpay.setText(today_Intpay + "");
+
+		for (int i = 0; i < week.size(); i++) {
+			Bill b = week.get(i);
+			if (b.mode.equals(DBHelper.GET)) {
+				dweek_Intget = dweek_Intget + new Integer(b.money);
+			}
+			if (b.mode.equals(DBHelper.PAY)) {
+				dweek_Intpay = dweek_Intpay + new Integer(b.money);
+			}
+		}
+		wget.setText(dweek_Intget + "");
+		wpay.setText(dweek_Intpay + "");
+
+		for (int i = 0; i < month.size(); i++) {
+			Bill b = month.get(i);
+			if (b.mode.equals(DBHelper.GET)) {
+				dmouth_Intget = dmouth_Intget + new Integer(b.money);
+			}
+			if (b.mode.equals(DBHelper.PAY)) {
+				dmouth_Intpay = dmouth_Intpay + new Integer(b.money);
+			}
+		}
+		mget.setText(dmouth_Intget + "");
+		mpay.setText(dmouth_Intpay + "");
+
+		t_get.setText(dmouth_Intget + "");
+		t_pay.setText(dmouth_Intpay + "");
 	}
 
 	public static String getTomorrowDate(String format, int i) {
