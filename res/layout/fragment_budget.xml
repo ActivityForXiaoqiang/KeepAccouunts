@@ -67,15 +67,15 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <TextView
-        
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:background="@color/top_bg_color"
         android:gravity="center"
         android:padding="12dp"
-        android:text="添加下月预算"
+        android:id="@+id/yusuan"
+        android:text="更新软件"
         android:textColor="#fff" />
 
 </LinearLayout>
