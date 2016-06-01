@@ -13,7 +13,6 @@ public class Account {
 	public int group_id;
 	public String money;
 	public String describe;
-	public AccountGroup group;
 
 	public Account() {
 		super();

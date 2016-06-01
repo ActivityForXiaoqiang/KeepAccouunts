@@ -4,9 +4,11 @@ import com.team.keepaccouunts.ui.fragment.AccountsFragment;
 import com.team.keepaccouunts.ui.fragment.BudgetFragment;
 import com.team.keepaccouunts.ui.fragment.HomeFragment;
 import com.team.keepaccouunts.ui.fragment.WasteBookFragment;
+import com.team.keepaccouunts.utils.DialogForAccount;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -39,10 +41,13 @@ public class MainActivity extends BaseActivity {
 
 	private ImageView add;
 
+	DialogForAccount dfa;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		settime();
 		init();
 	}
 
@@ -76,12 +81,14 @@ public class MainActivity extends BaseActivity {
 		t_home.setOnClickListener(l);
 		t_wbook.setOnClickListener(l);
 
+		dfa = new DialogForAccount(this);
 		add = (ImageView) findViewById(R.id.main_top_add);
 		add.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				showAddAccount();
+				// showAddAccount();
+				dfa.showAddAccount();
 			}
 		});
 	}
@@ -146,7 +153,7 @@ public class MainActivity extends BaseActivity {
 
 	AlertDialog dialog;
 
-	void showAddAccount() {
+	public void showAddAccount() {
 		dialog = new AlertDialog.Builder(this).create();
 		dialog.show();
 		Window window = dialog.getWindow();

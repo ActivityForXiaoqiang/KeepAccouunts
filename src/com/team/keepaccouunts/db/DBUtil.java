@@ -83,16 +83,7 @@ public class DBUtil {
 				account.group_id = c.getInt(2);
 				account.money = c.getString(3);
 				account.describe = c.getString(4);
-				/*
-				 * 查询账户对应的账户组
-				 */
-				Cursor c1 = db.query("account_group", null, "where _id=?",
-						new String[] { account.group_id + "" }, null, null,
-						null);
-				if (c1.moveToNext()) {
-					account.group = new AccountGroup(c.getInt(0),
-							c.getString(1), c.getString(2));
-				}
+			
 				arrayList.add(account);
 			}
 
@@ -119,12 +110,6 @@ public class DBUtil {
 			/*
 			 * 查询账单对应的账户
 			 */
-			Cursor c1 = db.query("account", null, "where _id=?",
-					new String[] { b.account_id + "" }, null, null, null);
-			if (c1.moveToNext()) {
-				b.account = new Account(c.getInt(0), c.getString(1),
-						c.getInt(2), c.getString(3), c.getString(4));
-			}
 			b.describe = c.getString(1);
 			b.date = c.getString(1);
 			arrayList.add(b);

@@ -25,6 +25,7 @@
         </activity>
         <activity android:name="com.team.keepaccouunts.BillAddActivity" />
         <activity android:name="com.team.keepaccouunts.AccountAddActivity" />
+        <activity android:name="com.team.keepaccouunts.GroupAddActivity"></activity>
     </application>
 
 </manifest>

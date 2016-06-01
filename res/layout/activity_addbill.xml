@@ -14,6 +14,7 @@
         android:weightSum="2" >
 
         <TextView
+            android:id="@+id/mode"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -22,11 +23,20 @@
             android:textSize="20sp" />
 
         <EditText
+            android:id="@+id/bill_add_money"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
-            android:hint="0.00¥" />
+            android:hint="0.00¥"
+            android:inputType="number" />
+
+        <ImageView
+            android:id="@+id/mode_chose"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:clickable="true"
+            android:src="@drawable/btn_go" />
     </LinearLayout>
 
     <LinearLayout

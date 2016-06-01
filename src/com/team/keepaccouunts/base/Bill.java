@@ -14,5 +14,4 @@ public class Bill {
 	public int account_id;
 	public String describe;
 	public String date;
-	public Account account;
 }

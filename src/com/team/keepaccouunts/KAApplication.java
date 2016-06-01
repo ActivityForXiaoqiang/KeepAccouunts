@@ -30,7 +30,6 @@ public class KAApplication extends Application {
 
 		Account account = new Account();
 		account.describe = "默认用户";
-		account.group = g;
 		account.group_id = 1;
 		account.money = "0";
 		account.name = "默认帐户";
