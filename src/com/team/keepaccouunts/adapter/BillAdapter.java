@@ -66,7 +66,7 @@ public class BillAdapter extends BaseAdapter {
 			h.mode.setText(b.mode);
 			h.money.setText(b.money);
 			h.type.setText(b.type);
-
+//dddd
 		}
 
 		return convertView;
