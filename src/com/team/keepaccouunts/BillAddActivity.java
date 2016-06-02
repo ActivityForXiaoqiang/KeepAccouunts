@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -99,7 +100,7 @@ public class BillAddActivity extends BaseActivity {
 		});
 
 	}
-
+	public static String[] type= { "吃饭", "购物", "娱乐", "约会", "赌博", "学习", "自定义" } ;
 	void showTypeDialog() {
 		final AlertDialog dialog = new AlertDialog.Builder(this).create();
 		dialog.show();
@@ -107,7 +108,6 @@ public class BillAddActivity extends BaseActivity {
 		window.setContentView(R.layout.dialog_type);
 		ListView listView = (ListView) window
 				.findViewById(R.id.dialog_listview_type);
-		final String[] type = { "吃饭", "购物", "娱乐", "约会", "赌博", "学习", "自定义" };
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, type);
 		listView.setAdapter(adapter);

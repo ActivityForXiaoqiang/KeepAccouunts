@@ -178,7 +178,7 @@ public class HomeFragment extends Fragment implements change {
 				t_get.setText(dmouth_Intget + msg.arg2+"");
 				mget.setText(dmouth_Intget + msg.arg2+"");
 				wget.setText(dweek_Intget + msg.arg2+"");
-				tget.setText(today_Intget + msg.arg2);
+				tget.setText(today_Intget + msg.arg2+"");
 			}
 			if (msg.arg1 == 2) {
 				t_pay.setText(dmouth_Intpay + msg.arg2+"");

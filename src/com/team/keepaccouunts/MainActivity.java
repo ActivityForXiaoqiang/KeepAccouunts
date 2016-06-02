@@ -16,6 +16,7 @@ import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -191,6 +192,9 @@ public class MainActivity extends BaseActivity {
 		if (requestCode == 1001) {
 			String mode = data.getStringExtra("mode");
 			int i = data.getIntExtra("add", 0);
+			if (TextUtils.isEmpty(mode)) {
+				return;
+			}
 			if (mode.equals(DBHelper.GET)) {
 				home.setget(i);
 				
