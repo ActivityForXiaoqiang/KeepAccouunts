@@ -1,5 +1,6 @@
 package com.team.keepaccouunts;
 
+import com.team.keepaccouunts.db.DBHelper;
 import com.team.keepaccouunts.ui.fragment.AccountsFragment;
 import com.team.keepaccouunts.ui.fragment.BudgetFragment;
 import com.team.keepaccouunts.ui.fragment.HomeFragment;
@@ -11,9 +12,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -55,6 +58,7 @@ public class MainActivity extends BaseActivity {
 	 * 初始化
 	 */
 	void init() {
+
 		findID();
 		home = new HomeFragment();
 		accounts = new AccountsFragment();
@@ -179,5 +183,31 @@ public class MainActivity extends BaseActivity {
 			}
 		}
 	};
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		// if (resultCode == getActivity().RESULT_OK) {
+		Log.i("xiaoqiang", "testing");
+		if (requestCode == 1001) {
+			String mode = data.getStringExtra("mode");
+			int i = data.getIntExtra("add", 0);
+			if (mode.equals(DBHelper.GET)) {
+				home.setget(i);
+				
+			}
+			if (mode.equals(DBHelper.PAY)) {
+				home.setpay(i);
+				
+			}
+
+		}
+		// }
+	}
+
+	public interface change {
+		public void setget(int i);
+
+		public void setpay(int i);
+	}
 
 }

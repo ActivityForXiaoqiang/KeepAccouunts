@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.team.keepaccouunts.BillAddActivity;
+import com.team.keepaccouunts.MainActivity.change;
 import com.team.keepaccouunts.R;
 import com.team.keepaccouunts.base.Bill;
 import com.team.keepaccouunts.db.DBHelper;
@@ -16,6 +17,8 @@ import com.team.keepaccouunts.utils.TimeUntil;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,7 +33,7 @@ import android.widget.TextView;
  * @author xiaoqiang
  *
  */
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements change {
 	View view;
 	TextView add_bill;
 	List<Object> data;
@@ -41,13 +44,13 @@ public class HomeFragment extends Fragment {
 	TextView day, dweek, dmouth;
 	TextView tpay, tget, wpay, wget, mpay, mget;
 	int today_Intpay = 0;
-	int today_Intget = 0;
+	static int today_Intget = 0;
 
 	int dweek_Intpay = 0;
 	int dweek_Intget = 0;
 
 	int dmouth_Intpay = 0;
-	int dmouth_Intget = 0;
+	static int dmouth_Intget = 0;
 	TextView t_get, t_pay, t_yusuan;
 
 	@Override
@@ -64,7 +67,7 @@ public class HomeFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				getActivity().startActivity(new Intent(getActivity(), BillAddActivity.class));
+				getActivity().startActivityForResult(new Intent(getActivity(), BillAddActivity.class), 1001);
 			}
 		});
 		day = (TextView) view.findViewById(R.id.today_date);
@@ -165,6 +168,44 @@ public class HomeFragment extends Fragment {
 		SimpleDateFormat sdf = new SimpleDateFormat(format);
 		String date = sdf.format(c.getTime());
 		return date;
+
+	}
+
+	Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.arg1 == 1) {
+				t_get.setText(dmouth_Intget + msg.arg2+"");
+				mget.setText(dmouth_Intget + msg.arg2+"");
+				wget.setText(dweek_Intget + msg.arg2+"");
+				tget.setText(today_Intget + msg.arg2);
+			}
+			if (msg.arg1 == 2) {
+				t_pay.setText(dmouth_Intpay + msg.arg2+"");
+				mpay.setText(dmouth_Intpay + msg.arg2+"");
+				wpay.setText(dweek_Intpay + msg.arg2+"");
+				tpay.setText(today_Intpay + msg.arg2+"");
+			}
+		}
+	};
+
+	@Override
+	public void setget(int i) {
+
+		Message m = new Message();
+		m.arg1 = 1;
+		m.arg2 = i;
+
+		handler.sendMessage(m);
+	}
+
+	@Override
+	public void setpay(int i) {
+		Message m = new Message();
+		m.arg1 = 2;
+		m.arg2 = i;
+
+		handler.sendMessage(m);
 
 	}
 

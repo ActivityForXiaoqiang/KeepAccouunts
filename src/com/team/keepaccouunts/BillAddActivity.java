@@ -161,7 +161,7 @@ public class BillAddActivity extends BaseActivity {
 		b.setOnClickListener(l);
 	}
 
-	String MODE=DBHelper.GET;
+	String MODE = DBHelper.GET;
 	OnClickListener l = new OnClickListener() {
 
 		@Override
@@ -190,6 +190,10 @@ public class BillAddActivity extends BaseActivity {
 		b.money = money.getText().toString();
 		b.type = dialog_type.getText().toString();
 		db.save(DBHelper.Bill, b);
+		Intent it = new Intent();
+		it.putExtra("mode", MODE);
+		it.putExtra("add", new Integer(b.money));
+		setResult(RESULT_OK, it);
 
 		Toast.makeText(this, "保存成功", 0).show();
 		ActivityCollector.getActivityCollector().finishCurrentActivity();
