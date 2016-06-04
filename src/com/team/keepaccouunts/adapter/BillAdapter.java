@@ -73,7 +73,7 @@ public class BillAdapter extends BaseAdapter {
 		if (newdata != null && newdata.size() > 0) {
 			Bill b = newdata.get(position);
 			h.date.setText(b.date);
-			h.mode.setText(b.mode);
+			h.mode.setText("");
 			h.money.setText(b.money);
 			h.type.setText(b.type);
 			// dddd

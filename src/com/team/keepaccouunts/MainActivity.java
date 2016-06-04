@@ -197,12 +197,13 @@ public class MainActivity extends BaseActivity {
 			}
 			if (mode.equals(DBHelper.GET)) {
 				home.setget(i);
-				
+
 			}
 			if (mode.equals(DBHelper.PAY)) {
 				home.setpay(i);
-				
+
 			}
+			wbook.dataChange();
 
 		}
 		// }

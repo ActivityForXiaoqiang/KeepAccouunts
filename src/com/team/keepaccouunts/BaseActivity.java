@@ -28,4 +28,6 @@ public class BaseActivity extends FragmentActivity {
 		TextView toptitle=(TextView) findViewById(R.id.main_top_title);
 		toptitle.setText(TimeUntil.getLocalDate("yyyy/MM/dd"));
 	}
+
+	
 }

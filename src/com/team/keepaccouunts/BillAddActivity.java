@@ -39,6 +39,8 @@ public class BillAddActivity extends BaseActivity {
 
 	EditText money, dec;
 	int index;
+	
+	
 
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -100,22 +102,21 @@ public class BillAddActivity extends BaseActivity {
 		});
 
 	}
-	public static String[] type= { "吃饭", "购物", "娱乐", "约会", "赌博", "学习", "自定义" } ;
+
+	public static String[] type = { "吃饭", "购物", "娱乐", "约会", "赌博", "学习", "自定义" };
+
 	void showTypeDialog() {
 		final AlertDialog dialog = new AlertDialog.Builder(this).create();
 		dialog.show();
 		Window window = dialog.getWindow();
 		window.setContentView(R.layout.dialog_type);
-		ListView listView = (ListView) window
-				.findViewById(R.id.dialog_listview_type);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, type);
+		ListView listView = (ListView) window.findViewById(R.id.dialog_listview_type);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, type);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				if (position != 6) {
 					dialog_type.setText(type[position]);
 				} else {
@@ -129,25 +130,21 @@ public class BillAddActivity extends BaseActivity {
 	}
 
 	private void showZidingyiDialog() {
-		final View textEntryView = LayoutInflater.from(this).inflate(
-				R.layout.dialog_zidingyi, null);
-		final EditText editText = (EditText) textEntryView
-				.findViewById(R.id.dialog_zidingyi_edit);
+		final View textEntryView = LayoutInflater.from(this).inflate(R.layout.dialog_zidingyi, null);
+		final EditText editText = (EditText) textEntryView.findViewById(R.id.dialog_zidingyi_edit);
 		final AlertDialog dialog = new AlertDialog.Builder(this)
 				.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						String data=editText.getText().toString();
+						String data = editText.getText().toString();
 						if (TextUtils.isEmpty(data)) {
 							Toast.makeText(BillAddActivity.this, "请输入名称", 0).show();
 							return;
 						}
 						dialog_type.setText(data);
 					}
-				})
-				.setView(textEntryView)
-				.create();
+				}).setView(textEntryView).create();
 		dialog.show();
 	}
 
@@ -158,8 +155,7 @@ public class BillAddActivity extends BaseActivity {
 		dialog.show();
 		Window window = dialog.getWindow();
 		window.setContentView(R.layout.dialog_type);
-		ListView listView = (ListView) window
-				.findViewById(R.id.dialog_listview_type);
+		ListView listView = (ListView) window.findViewById(R.id.dialog_listview_type);
 		final List<String> dataname = new ArrayList<String>();
 		data = new ArrayList<Object>();
 		data = db.query(DBHelper.Account, null, null);
@@ -167,14 +163,12 @@ public class BillAddActivity extends BaseActivity {
 			Account a = (Account) data.get(i);
 			dataname.add(a.name);
 		}
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, dataname);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dataname);
 		listView.setAdapter(adapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				account_chose.setText(dataname.get(position));
 				index = position + 1;
 				dialog.dismiss();
@@ -235,4 +229,5 @@ public class BillAddActivity extends BaseActivity {
 		ActivityCollector.getActivityCollector().finishCurrentActivity();
 	}
 
+	
 }
