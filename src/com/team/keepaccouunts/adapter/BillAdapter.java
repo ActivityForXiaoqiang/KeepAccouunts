@@ -26,6 +26,8 @@ public class BillAdapter extends BaseAdapter {
 	List<Bill> data;
 	List<Bill> newdata = new ArrayList<Bill>();
 
+	List<String> baifen = new ArrayList<String>();
+
 	public BillAdapter(Context con, List<Bill> data) {
 		this.data = data;
 		this.con = con;
@@ -73,7 +75,7 @@ public class BillAdapter extends BaseAdapter {
 		if (newdata != null && newdata.size() > 0) {
 			Bill b = newdata.get(position);
 			h.date.setText(b.date);
-			h.mode.setText("");
+			h.mode.setText(baifen.get(position));
 			h.money.setText(b.money);
 			h.type.setText(b.type);
 			// dddd
@@ -104,16 +106,23 @@ public class BillAdapter extends BaseAdapter {
 				}
 			}
 			if (pp.size() > 0) {
+				float kk=pp.size() / data.size();
+				double fenzi=pp.size();
+				double fenwu=data.size();
+				
+				String bf = (fenzi/fenwu) * 100 + "%";
+				baifen.add(bf);
+
 				Bill l = pp.get(pp.size() - 1);
 				l.money = k + "";
-				Log.i("xiaoqiang", k+"--======");
+				// Log.i("xiaoqiang", k+"--======");
 				newdata.add(l);
 			}
-			
+
 			pp.clear();
 
 		}
-		Log.i("xiaoqiang", newdata.size() + "........");
+		// Log.i("xiaoqiang", newdata.size() + "........");
 	}
 
 	class Viewholder {
