@@ -28,6 +28,8 @@ public class BillAdapter extends BaseAdapter {
 
 	List<String> baifen = new ArrayList<String>();
 
+	double zpay, zget;
+
 	public BillAdapter(Context con, List<Bill> data) {
 		this.data = data;
 		this.con = con;
@@ -75,7 +77,7 @@ public class BillAdapter extends BaseAdapter {
 		if (newdata != null && newdata.size() > 0) {
 			Bill b = newdata.get(position);
 			h.date.setText(b.date);
-			h.mode.setText(baifen.get(position));
+			h.mode.setText(b.mode+"占"+baifen.get(position));
 			h.money.setText(b.money);
 			h.type.setText(b.type);
 			// dddd
@@ -84,14 +86,29 @@ public class BillAdapter extends BaseAdapter {
 		return convertView;
 	}
 
+	int k = 0;
+	int y = 0;
+
 	void deal() {
+		zpay = 0.000000;
+		zget = 0.000000;
+		for (int i = 0; i < data.size(); i++) {
+			Bill b = data.get(i);
+			if (b.mode.equals(DBHelper.GET)) {
+				zget = zget + new Integer(b.money);
+			} else {
+				zpay = zpay + new Integer(b.money);
+			}
+		}
 
 		List<Bill> pp = new ArrayList<Bill>();
+		List<Bill> gg = new ArrayList<Bill>();
 		for (int j = 0; j < BillAddActivity.type.length; j++) {
 			if (j == BillAddActivity.type.length) {
 				return;
 			}
-			int k = 0;
+			k = 0;
+			y = 0;
 			for (int i = 0; i < data.size(); i++) {
 				// Log.i("xiaoqiang", "fori");
 				Bill b = data.get(i);
@@ -99,26 +116,39 @@ public class BillAdapter extends BaseAdapter {
 
 					if (b.mode.equals(DBHelper.GET)) {
 						k = k + new Integer(b.money);
+						b.money = k + "";
+						pp.add(b);
 					} else {
-						k = k - new Integer(b.money);
+						y = y + new Integer(b.money);
+						b.money = y + "";
+						gg.add(b);
 					}
-					pp.add(b);
+
 				}
 			}
 			if (pp.size() > 0) {
-				float kk=pp.size() / data.size();
-				double fenzi=pp.size();
-				double fenwu=data.size();
-				
-				String bf = (fenzi/fenwu) * 100 + "%";
-				baifen.add(bf);
+				Bill b = pp.get(pp.size() - 1);
 
-				Bill l = pp.get(pp.size() - 1);
-				l.money = k + "";
-				// Log.i("xiaoqiang", k+"--======");
-				newdata.add(l);
+				if (b.mode.equals(DBHelper.GET)) {
+					double fenzi = new Integer(b.money);
+					String bf = (fenzi / zget) * 100 + "%";
+					baifen.add(bf);
+				}
+
+				newdata.add(b);
 			}
 
+			if (gg.size() > 0) {
+				Bill b = gg.get(gg.size() - 1);
+
+				if (b.mode.equals(DBHelper.PAY)) {
+					double fenzi = new Integer(b.money);
+					String bf = (fenzi / zpay) * 100 + "%";
+					baifen.add(bf);
+				}
+				newdata.add(b);
+			}
+			gg.clear();
 			pp.clear();
 
 		}
